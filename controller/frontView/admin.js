@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const wantuUtils =require('../../utils/wantu');
 
 class AdminController {
 
@@ -17,25 +18,16 @@ class AdminController {
       insertOnly: 0,
     }
 
-    
-
-    return ctx.body = {
-      code:'200'
+    const obj = {
+      success: true,
+      Authorization: "UPLOAD_AK_TOP " + wantuUtils.uploadAuth(uploadPolicy, AK, SK),
+      "User-Agent": wantuUtils.getUserAgent(),
     }
 
 
-// //得到上传Token  有限期限为1小时
-//     exports.getToken = function(req,res,next){
-//       // console.log('in wentu')
-//       // console.log(req.user)
-//       const obj = {
-//         success: true,
-//         Authorization: "UPLOAD_AK_TOP " + wantuUtils.uploadAuth(uploadPolicy, AK, SK),
-//         "User-Agent": wantuUtils.getUserAgent(),
-//       }
-//
-//       res.json(obj)
-//     }
+
+    return ctx.body = obj
+
   }
 
 }

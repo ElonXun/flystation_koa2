@@ -1,17 +1,10 @@
 const router = require('koa-router')()
 const mongoose = require('mongoose')
 const Blog = require('../models/blog');
+const AdminController = require('../controller/frontView/admin');
 
 
-
-router.get('/json', async (ctx, next) => {
- 
- return ctx.body = {
-    code:200,
-    status:'success',
-  }
-
-})
+router.get('/test/getToken', AdminController.getWantuToken)
 
 router.post('/test/saveBlog', async (ctx, next) => {
   const data = ctx.request.body

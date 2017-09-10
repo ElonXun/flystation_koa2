@@ -23,7 +23,11 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="406b289e-5ff4-467d-8339-d60097e36863">
+        <schema name="flystation" object-types="column, constraint, function, index, procedure, table, dataset trigger, view" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="406b289e-5ff4-467d-8339-d60097e36863">
@@ -32,7 +36,7 @@
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-list connection-id="406b289e-5ff4-467d-8339-d60097e36863" dataset="flystation.blog" active-filter-id="EMPTY_FILTER" />
-    <filter-list connection-id="406b289e-5ff4-467d-8339-d60097e36863" dataset="flystation.blogTag" active-filter-id="" />
+    <filter-list connection-id="406b289e-5ff4-467d-8339-d60097e36863" dataset="flystation.blogTag" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers>

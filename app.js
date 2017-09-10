@@ -16,7 +16,7 @@ const mongoose = require('mongoose');
  *  const db = 'mongodb://youraccount:yourpassword@localhost:27017/yourMongoDb'
  * @type {string}
  */
-const db = require('./config/common')
+const db = require('./config/common').db
 //mongose
 mongoose.Promise = require('bluebird');
 

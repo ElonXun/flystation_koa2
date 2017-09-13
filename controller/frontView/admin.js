@@ -19,9 +19,12 @@ class AdminController {
     }
 
     const obj = {
-      success: true,
-      Authorization: "UPLOAD_AK_TOP " + wantuUtils.uploadAuth(uploadPolicy, AK, SK),
-      "User-Agent": wantuUtils.getUserAgent(),
+      code:200,
+      status: true,
+      data:{
+        wantuToken: "UPLOAD_AK_TOP " + wantuUtils.uploadAuth(uploadPolicy, AK, SK),
+        "User-Agent": wantuUtils.getUserAgent(),
+      }
     }
 
 

@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const qiniu = require("qiniu");
 const wantuUtils =require('../../utils/wantu');
 
 class AdminController {
@@ -28,6 +29,34 @@ class AdminController {
     }
 
 
+
+    return ctx.body = obj
+
+  }
+
+  //拿到千牛直传token
+  static async getQiNiuToken(ctx){
+    const AK = require('../../config/common').qiniuAK
+    const SK = require('../../config/common').qiniuSK
+    console.log(AK, SK)
+    let mac = new qiniu.auth.digest.Mac(AK, SK)
+    const bucket = require('../../config/common').bucket;
+    const putPolicy = new qiniu.rs.PutPolicy({
+      scope: bucket
+    });
+
+    const uploadToken = putPolicy.uploadToken(mac);
+    console.log(uploadToken);
+
+
+
+    const obj = {
+      code:200,
+      status: true,
+      data:{
+        qiniuToken: uploadToken
+      }
+    }
 
     return ctx.body = obj
 

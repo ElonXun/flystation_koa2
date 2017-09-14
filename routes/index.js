@@ -6,6 +6,8 @@ const AdminController = require('../controller/frontView/admin');
 
 router.get('/test/getToken', AdminController.getWantuToken)
 
+router.get('/test/getqiniu', AdminController.getQiNiuToken)
+
 router.post('/test/saveBlog', async (ctx, next) => {
   const data = ctx.request.body
   console.log(data)

@@ -23,7 +23,8 @@
     "koa-views": "^5.2.1",
     "koa2-cors": "^2.0.3",
     "mongoose": "^4.11.10",
-    "pug": "^2.0.0-rc.1"
+    "pug": "^2.0.0-rc.1",
+    "qiniu": "^7.0.8"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

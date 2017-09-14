@@ -42,7 +42,8 @@ class AdminController {
     let mac = new qiniu.auth.digest.Mac(AK, SK)
     const bucket = require('../../config/common').bucket;
     const putPolicy = new qiniu.rs.PutPolicy({
-      scope: bucket
+      scope: bucket,
+      
     });
 
     const uploadToken = putPolicy.uploadToken(mac);

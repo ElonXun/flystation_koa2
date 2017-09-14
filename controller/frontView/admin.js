@@ -38,18 +38,14 @@ class AdminController {
   static async getQiNiuToken(ctx){
     const AK = require('../../config/common').qiniuAK
     const SK = require('../../config/common').qiniuSK
-    console.log(AK, SK)
     let mac = new qiniu.auth.digest.Mac(AK, SK)
     const bucket = require('../../config/common').bucket;
     const putPolicy = new qiniu.rs.PutPolicy({
       scope: bucket,
-      
+      returnBody: '{"key":"$(key)","hash":"$(etag)","fsize":$(fsize),"bucket":"$(bucket)","name":"$(x:name)"}'
     });
 
     const uploadToken = putPolicy.uploadToken(mac);
-    console.log(uploadToken);
-
-
 
     const obj = {
       code:200,

@@ -35,6 +35,31 @@ class IndexController {
     return ctx.body = { code: 200, status:'success',data:{ blogDetails:result}};
 
   }
+
+
+  //修改博客信息
+  static  async saveBlogDetails(ctx){
+    console.log('saveBlogDetails')
+    const blogId = ctx.request.body.blogId
+
+    if(!blogId){
+      return ctx.body = { code: 401, status:'fail', err:'no blogId'};
+    }
+
+    const data = ctx.request.body.data
+
+    const result = await Blog.findByIdAndUpdate(blogId,data)
+
+    console.log(result)
+
+    if(!result){
+      return ctx.body = { code: 400, status:'fail'};
+    }
+
+    return ctx.body = { code: 200, status:'success'};
+  }
+
+
 }
 
 module.exports = IndexController;

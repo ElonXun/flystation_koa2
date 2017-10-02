@@ -2,11 +2,14 @@ const router = require('koa-router')()
 const mongoose = require('mongoose')
 const Blog = require('../models/blog');
 const AdminController = require('../controller/frontView/admin');
-
+const UserController = require('../controller/frontView/user');
 
 router.get('/test/getToken', AdminController.getWantuToken)
 
 router.get('/test/getqiniu', AdminController.getQiNiuToken)
+
+
+router.post('/test/addAccount',UserController.addAccount)
 
 router.post('/test/saveBlog', async (ctx, next) => {
   const data = ctx.request.body

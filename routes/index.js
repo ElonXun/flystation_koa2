@@ -11,6 +11,8 @@ router.get('/test/getqiniu', AdminController.getQiNiuToken)
 
 router.post('/test/addAccount',UserController.addAccount)
 
+router.post('/test/verifyAccount',UserController.verifyAccount)
+
 router.post('/test/saveBlog', async (ctx, next) => {
   const data = ctx.request.body
   console.log(data)

@@ -7,7 +7,7 @@ class IndexController {
   static async query(ctx){
     console.log('query')
 
-    const result = await Blog.find({},['blogTitle','blogPicture','blogTape','isTop','createAt','updateAt']).exec()
+    const result = await Blog.find({},['blogTitle','blogPicture','blogTape','blogReview','isTop','createAt','updateAt']).exec()
 
     if(!result){
       return ctx.body = { code: 400, status:'fail'};
@@ -58,6 +58,28 @@ class IndexController {
 
     return ctx.body = { code: 200, status:'success'};
   }
+
+  //博客点击量
+  static  async addBlogReview(ctx){
+    console.log('addBlogReview',ctx.query)
+    const blogId = ctx.query.blogId
+
+    if(!blogId){
+      return ctx.body = { code: 401, status:'fail', err:'no blogId'};
+    }
+
+
+    const result = await Blog.findByIdAndUpdate(blogId,{$inc : {blogReview : 1}})
+
+    console.log(result)
+
+    if(!result){
+      return ctx.body = { code: 400, status:'fail'};
+    }
+
+    return ctx.body = { code: 200, status:'success'};
+  }
+
 
 
 }

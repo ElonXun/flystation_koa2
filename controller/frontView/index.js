@@ -80,6 +80,21 @@ class IndexController {
     return ctx.body = { code: 200, status:'success'};
   }
 
+  //右侧导航栏阅读最多
+  static  async mostReviewedBlogs(ctx){
+    console.log('mostReviewedBlogs')
+
+    const result = await Blog.find({},['blogReview','blogTitle']).sort({blogReview:-1}).limit(3)
+
+    console.log(result)
+
+    if(!result){
+      return ctx.body = { code: 400, status:'fail'};
+    }
+
+    return ctx.body = { code: 200, status:'success'};
+  }
+
 
 
 }

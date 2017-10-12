@@ -95,6 +95,28 @@ class IndexController {
     return ctx.body = { code: 200, status:'success'};
   }
 
+  //置顶文章
+  static  async setBlogTop(ctx){
+    console.log('setBlogTop',ctx.request.body.blogId,ctx.request.body.isTop)
+    const blogId = ctx.request.body.blogId
+
+    if(!blogId){
+      return ctx.body = { code: 401, status:'fail', err:'no blogId'};
+    }
+
+    const isTop = ctx.request.body.isTop
+
+    const result = await Blog.findByIdAndUpdate(blogId,{isTop:isTop}).exec()
+
+    console.log(result)
+
+    if(!result){
+      return ctx.body = { code: 400, status:'fail'};
+    }
+
+    return ctx.body = { code: 200, status:'success'};
+  }
+
 
 
 }

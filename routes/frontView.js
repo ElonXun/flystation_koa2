@@ -10,6 +10,7 @@ router.get('/api/query',IndexController.query)
       .post('/api/saveBlogDetails',IndexController.saveBlogDetails)
       .get('/api/addBlogReview',IndexController.addBlogReview)
       .get('/api/mostReviewedBlogs',IndexController.mostReviewedBlogs)
+      .post('/api/setBlogTop',IndexController.setBlogTop)
       // .get('/api/getBlogTapes',)
 
 

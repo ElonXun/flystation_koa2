@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const Blog = require('../../models/blog')
+const moment =require ('moment')
+
 
 class IndexController {
 
@@ -8,6 +10,22 @@ class IndexController {
     console.log('query')
 
     const result = await Blog.find({},['blogTitle','blogPicture','blogTape','blogReview','isTop','createAt','updateAt']).exec()
+    
+    result.sort((a,b)=>{
+       if(a.isTop<b.isTop){
+        return 1
+       }else if(a.isTop==b.isTop){
+          if(moment(a.createAt).format('X')<moment(b.createAt).format('X')){
+            return -1
+          }else if(moment(a.createAt).format('X')==moment(b.createAt).format('X')){
+            return 0
+          }else{
+            return 1
+          }
+       }else{
+        return -1
+       }
+    })
 
     if(!result){
       return ctx.body = { code: 400, status:'fail'};

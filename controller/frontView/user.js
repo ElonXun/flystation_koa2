@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 const User = require('../../models/user');
+const uuidv4 = require('uuid/v4');
+
 
 class UserController {
   //创建一个操作账户
   static async addAccount(ctx){
       console.log('addAccount')
       const data = ctx.request.body
+      data.token = uuidv4()
       console.log(data)
       const result = await User.create(data)
       if(!result){
@@ -39,7 +42,9 @@ class UserController {
       return ctx.body = {
         code:200,
         status:'success',
-        date:result,
+        date:{
+          token:result.token
+        },
       }
 
   }

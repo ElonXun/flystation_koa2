@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Blog = require('../../models/blog')
+const BlogTag =require('../../models/blogTag')
 const moment =require ('moment')
 
 
@@ -65,6 +66,24 @@ class IndexController {
     }
 
     const data = ctx.request.body.data
+    
+    let newTags = data.blogTags.filter((tag,index)=>{
+      return tag.tagStatus === 1
+    })
+    let oldTags = data.blogTags.filter((tag,index)=>{
+      return tag.tagStatus === 0
+    })
+
+    let newTagIds = newTags.map((tag,index)=>{
+       let result = await BlogTag.create(tag.tagName)
+       return result._id
+    })
+    
+    let oldTagIds = oldTags.map((tag,index)=>{
+       return tag.tagId
+    })
+
+    data.blogTags=oldTagIds.concat(newTagIds)
 
     const result = await Blog.findByIdAndUpdate(blogId,data)
 

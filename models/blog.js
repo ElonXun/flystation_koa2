@@ -8,6 +8,7 @@ const BlogSchema = new Schema({
   blogTape:{type:Number, required:true}, //0为干货,1为杂记,2为游记
   blogReview:{type:Number,default:0},
   isTop:{type:Number,default:0},
+  blogTagIds:{type:String,required:true},
   createAt: {
     type: Date,
     default: Date.now()

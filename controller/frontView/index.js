@@ -64,26 +64,36 @@ class IndexController {
     if(!blogId){
       return ctx.body = { code: 401, status:'fail', err:'no blogId'};
     }
+    
+    // console.log(ctx.request.body.data.blogTags)
+    // return ctx.body = { code: 401, status:'text'};
 
     const data = ctx.request.body.data
     
     let newTags = data.blogTags.filter((tag,index)=>{
       return tag.tagStatus === 1
     })
+    console.log('newTags',newTags)
     let oldTags = data.blogTags.filter((tag,index)=>{
       return tag.tagStatus === 0
     })
-
-    let newTagIds = newTags.map((tag,index)=>{
-       let result = await BlogTag.create(tag.tagName)
+    console.log('oldTags',oldTags)
+    // return ctx.body = { code: 401, status:'text'};
+    
+    let newTagIds = newTags.map(async(tag,index)=>{
+       let result = await BlogTag.create({tagContent:tag.tagName})
+       console.log('in result',result)
        return result._id
     })
-    
+
+    console.log('newTagIds',newTagIds)
+
     let oldTagIds = oldTags.map((tag,index)=>{
        return tag.tagId
     })
 
     data.blogTags=oldTagIds.concat(newTagIds)
+    console.log('blogTags',data.blogTags)
 
     const result = await Blog.findByIdAndUpdate(blogId,data)
 

@@ -80,10 +80,11 @@ class IndexController {
     console.log('oldTags',oldTags)
     // return ctx.body = { code: 401, status:'text'};
     
-    let newTagIds = newTags.map(async(tag,index)=>{
+    let newTagIds = []
+    newTags.forEach(async(tag,index)=>{
        let result = await BlogTag.create({tagContent:tag.tagName})
        console.log('in result',result)
-       return result._id
+       newTagIds.push(result._id)
     })
 
     console.log('newTagIds',newTagIds)

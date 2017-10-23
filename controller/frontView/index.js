@@ -47,6 +47,17 @@ class IndexController {
 
     const result = await Blog.findById(blogId).exec()
 
+    let blogTagIds = result.blogTagIds.split(',')
+    let blogTags = blogTagIds.map(async(tagId,index)=>{
+       let result = await BlogTag.findById(tagId).exec()
+       return {
+          blogTagId:result._id,
+          tagContent:result.tagContent,
+       }
+    })
+
+    result.blogTags = blogTags
+
     if(!result){
       return ctx.body = { code: 400, status:'fail'};
     }

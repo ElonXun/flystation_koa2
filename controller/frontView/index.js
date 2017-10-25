@@ -89,29 +89,36 @@ class IndexController {
     
     let newTags = data.blogTags.filter((tag,index)=>{
       return tag.tagStatus === 1
+    }).map((tag,index)=>{
+      return {
+        tagContent:tag.tagName
+      }
     })
+
     console.log('newTags',newTags)
     let oldTags = data.blogTags.filter((tag,index)=>{
       return tag.tagStatus === 0
+    }).map((tag,index)=>{
+      return {
+        tagContent:tag.tagName
+      }
     })
+
     console.log('oldTags',oldTags)
-    // return ctx.body = { code: 401, status:'text'};
-    
-    let newTagIds = []
-    newTags.forEach((tag,index)=>{
-       let result = BlogTag.create({tagContent:tag.tagName})
-       console.log('in result',result)
-       newTagIds.push(result._id)
+    let newTagIds = await BlogTag.create(newTags).map((blogTag,index)=>{
+      return blogTag._id
     })
 
     console.log('newTagIds',newTagIds)
+
+    // return ctx.body = { code: 401, status:'text'};
 
     let oldTagIds = oldTags.map((tag,index)=>{
        return tag.tagId
     })
 
     data.blogTags=oldTagIds.concat(newTagIds)
-    console.log('blogTags',data.blogTags)
+    console.log('data',data)
 
     const result = await Blog.findByIdAndUpdate(blogId,data)
 

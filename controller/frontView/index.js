@@ -46,17 +46,23 @@ class IndexController {
     }
 
     const result = await Blog.findById(blogId).exec()
+    
+    let blogTagIds
+    let blogTags
 
-    let blogTagIds = result.blogTagIds.split(',')
-    let blogTags = blogTagIds.map(async(tagId,index)=>{
-       let result = await BlogTag.findById(tagId).exec()
+    if(result.blogTagIds){
+      blogTagIds = result.blogTagIds.split(',')
+      blogTags = blogTagIds.map((tagId,index)=>{
+       let result = BlogTag.findById(tagId).exec()
        return {
           blogTagId:result._id,
           tagContent:result.tagContent,
        }
-    })
-
+      })
+    }
+    
     result.blogTags = blogTags
+    console.log('tags',result.blogTags)
 
     if(!result){
       return ctx.body = { code: 400, status:'fail'};
@@ -92,8 +98,8 @@ class IndexController {
     // return ctx.body = { code: 401, status:'text'};
     
     let newTagIds = []
-    newTags.forEach(async(tag,index)=>{
-       let result = await BlogTag.create({tagContent:tag.tagName})
+    newTags.forEach((tag,index)=>{
+       let result = BlogTag.create({tagContent:tag.tagName})
        console.log('in result',result)
        newTagIds.push(result._id)
     })

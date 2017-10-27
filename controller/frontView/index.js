@@ -52,23 +52,19 @@ class IndexController {
 
     if(result.blogTagIds){
       blogTagIds = result.blogTagIds.split(',')
-      blogTags = blogTagIds.map((tagId,index)=>{
-       let result = BlogTag.findById(tagId).exec()
-       return {
-          blogTagId:result._id,
-          tagContent:result.tagContent,
-       }
+      let data = await BlogTag.find({'_id':{'$in':blogTagIds}}).exec()
+      blogTags = data.map((val,index)=>{
+        return {
+          tagName:val.tagContent,
+          tagId:val._id,
+        }
       })
     }
-    
-    result.blogTags = blogTags
-    console.log('tags',result.blogTags)
-
     if(!result){
       return ctx.body = { code: 400, status:'fail'};
     }
 
-    return ctx.body = { code: 200, status:'success',data:{ blogDetails:result}};
+    return ctx.body = { code: 200, status:'success',data:{ blogDetails:result,blogTags:blogTags}};
 
   }
 
@@ -110,8 +106,6 @@ class IndexController {
     })
 
     console.log('newTagIds',newTagIds)
-
-    // return ctx.body = { code: 401, status:'text'};
 
     let oldTagIds = oldTags.map((tag,index)=>{
        return tag.tagId

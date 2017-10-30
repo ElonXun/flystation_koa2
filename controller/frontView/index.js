@@ -9,9 +9,7 @@ class IndexController {
   // 首页数据加载
   static async query(ctx){
     console.log('query')
-
     const result = await Blog.find({},['blogTitle','blogPicture','blogTape','blogReview','isTop','createAt','updateAt']).exec()
-    
     result.sort((a,b)=>{
        if(a.isTop<b.isTop){
         return 1
@@ -27,14 +25,24 @@ class IndexController {
         return -1
        }
     })
-
     if(!result){
       return ctx.body = { code: 400, status:'fail'};
     }
-
-
     return ctx.body = { code: 200, status:'success',data:{ blogs:result}};
   }
+
+  //首页右侧标签查询
+  static async getAllBlogTags(ctx){
+    console.log('getAllBlogTags')
+    const result = await BlogTag.find({}).exec()
+
+    console.log(result)
+    if(!result){
+      return ctx.body = { code: 400, status:'fail'};
+    }
+    return ctx.body = { code: 200, status:'success',data:{ blogTags:result}};
+  }
+
 
   //查询博客详情
   static  async blogDetails(ctx){

@@ -6,6 +6,7 @@ const IndexController=require('../controller/frontView/index');
 
 
 router.get('/api/query',IndexController.query)
+      .get('/api/getAllBlogTags',IndexController.getAllBlogTags)
       .post('/api/blogDetails',IndexController.blogDetails)
       .post('/api/saveBlogDetails',IndexController.saveBlogDetails)
       .get('/api/addBlogReview',IndexController.addBlogReview)

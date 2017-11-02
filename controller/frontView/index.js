@@ -90,41 +90,44 @@ class IndexController {
     // return ctx.body = { code: 401, status:'text'};
 
     const data = ctx.request.body.data
-    
-    let newTags = data.blogTags.filter((tag,index)=>{
-      return tag.tagStatus === 1
-    }).map((tag,index)=>{
-      return {
-        tagContent:tag.tagName
-      }
-    })
 
-    console.log('newTags',newTags)
-    let oldTags = data.blogTags.filter((tag,index)=>{
-      return tag.tagStatus === 0
-    }).map((tag,index)=>{
-      return {
-        tagContent:tag.tagName,
-        tagId:tag.tagId,
-      }
-    })
-
-    let newTagIds= []
-    console.log('oldTags',oldTags)
-    if(newTags.length>0){
-      newTagIds = await BlogTag.create(newTags).map((blogTag,index)=>{
-        return blogTag._id
+    if(data.blogTags){
+      let newTags = data.blogTags.filter((tag,index)=>{
+        return tag.tagStatus === 1
+      }).map((tag,index)=>{
+        return {
+          tagContent:tag.tagName
+        }
       })
-    }
-    console.log('newTagIds',newTagIds)
-    let oldTagIds =  []
-    if(oldTags.length>0){
-      oldTagIds = oldTags.map((tag,index)=>{
-        return tag.tagId
+
+      console.log('newTags',newTags)
+      let oldTags = data.blogTags.filter((tag,index)=>{
+        return tag.tagStatus === 0
+      }).map((tag,index)=>{
+        return {
+          tagContent:tag.tagName,
+          tagId:tag.tagId,
+        }
       })
+
+      let newTagIds= []
+      console.log('oldTags',oldTags)
+      if(newTags.length>0){
+        newTagIds = await BlogTag.create(newTags).map((blogTag,index)=>{
+          return blogTag._id
+        })
+      }
+      console.log('newTagIds',newTagIds)
+      let oldTagIds =  []
+      if(oldTags.length>0){
+        oldTagIds = oldTags.map((tag,index)=>{
+          return tag.tagId
+        })
+      }
+
+      data.blogTagIds=oldTagIds.concat(newTagIds).join()
     }
 
-    data.blogTagIds=oldTagIds.concat(newTagIds).join()
     console.log('data',data)
 
     // return ctx.body = { code: 200, status:'success'};

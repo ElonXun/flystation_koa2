@@ -11,7 +11,6 @@
    ```
     koa2
     mongoose
-    commonJS
    ```
 
 ## 版本更新
